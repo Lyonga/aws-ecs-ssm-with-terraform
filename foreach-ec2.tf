@@ -35,3 +35,25 @@ resource "aws_instance" "test" {
 # cidr_block = each.value
 # vpc_id = aws_vpc.vpc.id
 # }
+variable "instance" {
+  default = {
+    "server-1" = {type = "t2.micro" , ami = "ami-03c1fac8dd915ff60"},
+    "server-2" = {type = "t2.medium" , ami = "ami-03c1fac8dd915ff60"},
+    "server-3" = {type = "t2.nano" , ami = "ami-03c1fac8dd915ff60"}
+  }
+}
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region  = "us-east-1"
+}
